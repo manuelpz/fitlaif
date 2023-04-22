@@ -19,7 +19,7 @@ export default function EntrenamientoFuncion() {
 
   return (
     <div>
-      <h1>El entrenamiento es {data ? data.musculo : ''}</h1>
+      <h1>El entrenamiento es {data ? data.musculo.toLowerCase() : ''}</h1>
     </div>
   )
 }
