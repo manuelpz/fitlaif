@@ -1,0 +1,98 @@
+[
+    {
+        "id": 1,
+        "musculo": "Biceps",
+        "img": "/entrenamientos/biceps.jpg",
+        "hashtag": [
+            {
+                "src": "brazo"
+            },
+            {
+                "src": "espalda"
+            },
+            {
+                "src": "bola"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "musculo": "Triceps",
+        "img": "/entrenamientos/triceps.jpg",
+        "hashtag": [
+            {
+                "src": "brazo"
+            },
+            {
+                "src": "posterior"
+            },
+            {
+                "src": "pecho"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "musculo": "Hombro",
+        "img": "/entrenamientos/hombro.jpg",
+        "hashtag": [
+            {
+                "src": "brazo"
+            },
+            {
+                "src": "triceps"
+            },
+            {
+                "src": "tren-superior"
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "musculo": "Pecho",
+        "img": "/entrenamientos/pecho.jpg",
+        "hashtag": [
+            {
+                "src": "torso"
+            },
+            {
+                "src": "triceps"
+            },
+            {
+                "src": "tren-superior"
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "musculo": "Espalda",
+        "img": "/entrenamientos/espalda.jpg",
+        "hashtag": [
+            {
+                "src": "torso"
+            },
+            {
+                "src": "biceps"
+            },
+            {
+                "src": "tren-superior"
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "musculo": "Pierna",
+        "img": "/entrenamientos/pierna.jpg",
+        "hashtag": [
+            {
+                "src": "femoral"
+            },
+            {
+                "src": "cuadriceps"
+            },
+            {
+                "src": "tren-inferior"
+            }
+        ]
+    }
+]
