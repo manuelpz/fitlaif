@@ -1,6 +1,6 @@
 interface Entrenamiento {
-  id: number
+  entrenamientoId: number
   musculo: string
   img: string
-  hashtag: { src: string }[]
+  hashtag: { src: string}[]
 }

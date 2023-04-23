@@ -1,6 +1,6 @@
 [
     {
-        "id": 1,
+        "entrenamientoId": 1,
         "musculo": "Biceps",
         "img": "/entrenamientos/biceps.jpg",
         "hashtag": [
@@ -16,7 +16,7 @@
         ]
     },
     {
-        "id": 2,
+        "entrenamientoId": 2,
         "musculo": "Triceps",
         "img": "/entrenamientos/triceps.jpg",
         "hashtag": [
@@ -32,7 +32,7 @@
         ]
     },
     {
-        "id": 3,
+        "entrenamientoId": 3,
         "musculo": "Hombro",
         "img": "/entrenamientos/hombro.jpg",
         "hashtag": [
@@ -48,7 +48,7 @@
         ]
     },
     {
-        "id": 4,
+        "entrenamientoId": 4,
         "musculo": "Pecho",
         "img": "/entrenamientos/pecho.jpg",
         "hashtag": [
@@ -64,7 +64,7 @@
         ]
     },
     {
-        "id": 5,
+        "entrenamientoId": 5,
         "musculo": "Espalda",
         "img": "/entrenamientos/espalda.jpg",
         "hashtag": [
@@ -80,7 +80,7 @@
         ]
     },
     {
-        "id": 6,
+        "entrenamientoId": 6,
         "musculo": "Pierna",
         "img": "/entrenamientos/pierna.jpg",
         "hashtag": [
