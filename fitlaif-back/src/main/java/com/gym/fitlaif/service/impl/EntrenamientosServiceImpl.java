@@ -61,7 +61,7 @@ public class EntrenamientosServiceImpl implements EntrenamientosService{
 			Entrenamientos entrenamiento = documentSnapshot.toObject(Entrenamientos.class);
 			return entrenamientosMapper.toDTO(entrenamiento);			
 		}
-		else throw new Exception("Este entrenamiento no existe");
+		else throw new EntrenamientoConflictException(NOT_FOUND_STATUS, "Este entrenamiento no existe");
 	}
 
 	@Override
