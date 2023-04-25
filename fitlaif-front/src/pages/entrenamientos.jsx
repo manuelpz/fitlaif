@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 export default function Entrenamientos() {
   const [isMounted, setIsMounted] = useState(false)
-  const [data, setData] = useState<Entrenamiento[]>([])
+  const [data, setData] = useState([])
 
   const fetchData = async () => {
     const response = await fetch('http://localhost:8080/entrenamientos')
