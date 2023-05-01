@@ -17,7 +17,8 @@ import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.gym.fitlaif.domain.Entrenamientos;
 import com.gym.fitlaif.dto.EntrenamientosDTO;
-import com.gym.fitlaif.exceptions.EntrenamientoConflictException;
+import com.gym.fitlaif.exceptions.FitLaifConflictException;
+import com.gym.fitlaif.exceptions.FitLaifNotFoundException;
 import com.gym.fitlaif.mapper.EntrenamientosMapper;
 import com.gym.fitlaif.service.EntrenamientosService;
 
@@ -25,7 +26,7 @@ import com.gym.fitlaif.service.EntrenamientosService;
 public class EntrenamientosServiceImpl implements EntrenamientosService{
 	
 	private int CONFLICT_STATUS = 409;
-	private int NOT_FOUND_STATUS = 409;
+	private int NOT_FOUND_STATUS = 404;
     private final Firestore firestore;
 
     @Autowired
@@ -45,7 +46,7 @@ public class EntrenamientosServiceImpl implements EntrenamientosService{
         for (QueryDocumentSnapshot documento : documents) {
         	Entrenamientos entrenamientoA = documento.toObject(Entrenamientos.class);
         	if (entrenamientoA.getEntrenamientoId().equals(entrenamiento.getEntrenamientoId())) {
-        		throw new EntrenamientoConflictException(CONFLICT_STATUS, "La ID de entrenamiento que estás intentando registrar ya se encuentra registrada");
+        		throw new FitLaifConflictException(CONFLICT_STATUS, "La ID de entrenamiento que estás intentando registrar ya se encuentra registrada");
         	}
         }
         persistirEntrenamiento(entrenamiento, document);
@@ -61,7 +62,7 @@ public class EntrenamientosServiceImpl implements EntrenamientosService{
 			Entrenamientos entrenamiento = documentSnapshot.toObject(Entrenamientos.class);
 			return entrenamientosMapper.toDTO(entrenamiento);			
 		}
-		else throw new EntrenamientoConflictException(NOT_FOUND_STATUS, "Este entrenamiento no existe");
+		else throw new FitLaifNotFoundException(NOT_FOUND_STATUS, "Este entrenamiento no existe");
 	}
 
 	@Override
@@ -70,7 +71,7 @@ public class EntrenamientosServiceImpl implements EntrenamientosService{
 		if(encontrarPorId(id) != null) {
 			document.delete();
 		}
-	    else throw new EntrenamientoConflictException(NOT_FOUND_STATUS, "No se encuentra el entrenamiento que estás intentando eliminar");	
+	    else throw new FitLaifNotFoundException(NOT_FOUND_STATUS, "No se encuentra el entrenamiento que estás intentando eliminar");	
 	}
 
 	@Override
@@ -80,7 +81,7 @@ public class EntrenamientosServiceImpl implements EntrenamientosService{
 			persistirEntrenamiento(entrenamiento, document);
 			return entrenamientosMapper.toDTO(entrenamiento);
 		}
-		else throw new EntrenamientoConflictException(CONFLICT_STATUS, "Ha habido un error inesperado al intentar actualizar este entrenamiento, por favor, intentalo mas tarde");
+		else throw new FitLaifConflictException(CONFLICT_STATUS, "Ha habido un error inesperado al intentar actualizar este entrenamiento, por favor, intentalo mas tarde");
 	}
 	
 	public Entrenamientos encontrarPorId(String id) throws Exception {

@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
-import com.gym.fitlaif.exceptions.EntrenamientoConflictException;
+import com.gym.fitlaif.exceptions.FitLaifConflictException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(EntrenamientoConflictException.class)
+    @ExceptionHandler(FitLaifConflictException.class)
     public ResponseEntity<Object> handleEntrenamientoConflictException(
-            EntrenamientoConflictException ex, WebRequest request) {
+            FitLaifConflictException ex, WebRequest request) {
 
         Map<String, Object> error = new HashMap<>();
         error.put("status", HttpStatus.CONFLICT.value());

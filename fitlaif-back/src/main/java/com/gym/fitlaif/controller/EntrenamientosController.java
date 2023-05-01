@@ -45,7 +45,7 @@ public class EntrenamientosController {
 		entrenamientosService.eliminarEntrenamiento(id);
 	}
 	
-	@PutMapping()
+	@PutMapping("/actualizar")
 	private EntrenamientosDTO actualizarEntrenamiento(@RequestBody Entrenamientos entrenamiento) throws Exception {
 		return entrenamientosService.actualizarEntrenamiento(entrenamiento);
 	}
