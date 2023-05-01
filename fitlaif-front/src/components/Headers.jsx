@@ -1,5 +1,5 @@
 import Head from "next/head"
-export default function Headers({ title, description }: any) {
+export default function Headers({ title, description }) {
   return (
     <div>
       <Head>
