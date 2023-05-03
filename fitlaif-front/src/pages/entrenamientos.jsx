@@ -59,6 +59,10 @@ export default function Entrenamientos() {
           </Link>
         ))}
       </div>
+      <br />
+      <Link href={`/entrenamientos/guardarEntrenamiento`}>
+      <button>Añadir un músculo</button>
+      </Link>
     </div>
   )
 }

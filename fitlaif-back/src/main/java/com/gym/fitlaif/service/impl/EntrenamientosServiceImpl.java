@@ -29,7 +29,6 @@ public class EntrenamientosServiceImpl implements EntrenamientosService{
 	private int NOT_FOUND_STATUS = 404;
     private final Firestore firestore;
 
-    @Autowired
     public EntrenamientosServiceImpl(Firestore firestore) {
         this.firestore = firestore;
     }
@@ -47,6 +46,9 @@ public class EntrenamientosServiceImpl implements EntrenamientosService{
         	Entrenamientos entrenamientoA = documento.toObject(Entrenamientos.class);
         	if (entrenamientoA.getEntrenamientoId().equals(entrenamiento.getEntrenamientoId())) {
         		throw new FitLaifConflictException(CONFLICT_STATUS, "La ID de entrenamiento que estás intentando registrar ya se encuentra registrada");
+        	}
+        	if(entrenamientoA.getMusculo().toLowerCase().equals(entrenamiento.getMusculo().toLowerCase())){
+        		throw new FitLaifConflictException(CONFLICT_STATUS, "El músculo que estás intentado registrar ya se encuentra registrado");
         	}
         }
         persistirEntrenamiento(entrenamiento, document);
