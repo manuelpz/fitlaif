@@ -5,20 +5,30 @@ import { useEffect, useState } from 'react'
 export default function Entrenamientos() {
   const [isMounted, setIsMounted] = useState(false)
   const [data, setData] = useState([])
+  const [error, setError] = useState('')
 
   const fetchData = async () => {
-    const response = await fetch('http://localhost:8080/entrenamientos')
-    const data = await response.json()
-    setData(data)
+    try {
+      const response = await fetch('http://localhost:8080/entrenamientos')
+      const data = await response.json()
+      setData(data)
+    }
+    catch (e) {
+      setError("Hubo un error al obtener los entrenamientos, por favor contacte con un administrador")
+    }
   }
 
   useEffect(() => {
     fetchData()
     setIsMounted(true)
-  }, [])
+     }, [])
 
   if (!isMounted) {
-    return null
+    return <h1>Cargando entrenamientos...</h1>
+  }
+
+  if(error !== ''){
+    return error
   }
 
   return (
@@ -61,7 +71,7 @@ export default function Entrenamientos() {
       </div>
       <br />
       <Link href={`/entrenamientos/guardarEntrenamiento`}>
-      <button>Añadir un músculo</button>
+        <button>Añadir un músculo</button>
       </Link>
     </div>
   )

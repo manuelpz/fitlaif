@@ -7,9 +7,9 @@ import com.gym.fitlaif.dto.EntrenamientosDTO;
 
 public interface EntrenamientosService {
 
-	public EntrenamientosDTO guardarEntrenamiento(Entrenamientos entrenamiento) throws Exception; 
-	public List<EntrenamientosDTO> obtenerTodosLosEntrenamientos() throws Exception;
-	public EntrenamientosDTO obtenerEntrenamientos(String id) throws Exception;
-	public void eliminarEntrenamiento(String id) throws Exception;
-	public EntrenamientosDTO actualizarEntrenamiento(Entrenamientos entrenamiento) throws Exception;
+	EntrenamientosDTO guardarEntrenamiento(Entrenamientos entrenamiento) throws Exception;
+	List<EntrenamientosDTO> obtenerTodosLosEntrenamientos() throws Exception;
+	EntrenamientosDTO obtenerEntrenamientos(String id) throws Exception;
+	void eliminarEntrenamiento(String id) throws Exception;
+	EntrenamientosDTO actualizarEntrenamiento(Entrenamientos entrenamiento) throws Exception;
 }

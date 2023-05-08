@@ -25,8 +25,8 @@ import com.gym.fitlaif.service.EjerciciosService;
 @Service
 public class EjerciciosServiceImpl implements EjerciciosService{
 	
-	private int CONFLICT_STATUS = 409;
-	private int NOT_FOUND_STATUS = 404;
+	private final int CONFLICT_STATUS = 409;
+	private final int NOT_FOUND_STATUS = 404;
     private final Firestore firestore;
 
     @Autowired
@@ -60,7 +60,8 @@ public class EjerciciosServiceImpl implements EjerciciosService{
 		DocumentSnapshot documentSnapshot = document.get().get();
 		if(documentSnapshot.exists()) {
 			Ejercicios ejercicio = documentSnapshot.toObject(Ejercicios.class);
-			return ejerciciosMapper.toDTO(ejercicio);			
+			assert ejercicio != null;
+			return ejerciciosMapper.toDTO(ejercicio);
 		}
 		else throw new FitLaifNotFoundException(NOT_FOUND_STATUS, "Este ejercicio no existe");
 	}
