@@ -1,11 +1,14 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import ReactModal from 'react-modal';
+
 
 export default function Entrenamientos() {
   const [isMounted, setIsMounted] = useState(false)
   const [data, setData] = useState([])
   const [error, setError] = useState('')
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const fetchData = async () => {
     try {
@@ -18,16 +21,37 @@ export default function Entrenamientos() {
     }
   }
 
+  const eliminarEntrenamiento = async (id) => {
+    fetch(`http://localhost:8080/entrenamientos/eliminar/${id}`, {
+      method: 'DELETE'
+    })
+    location.reload()
+  }
+
+  const calcularClassName = (prioridad) => {
+    if (prioridad == 'Alta') {
+      return 'inline-block bg-red-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'
+    }
+    if (prioridad == 'Media') {
+      return 'inline-block bg-yellow-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'
+    }
+    if (prioridad == 'Baja') {
+      return 'inline-block bg-green-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'
+    }
+
+  }
+
+
   useEffect(() => {
     fetchData()
     setIsMounted(true)
-     }, [])
+  }, [])
 
   if (!isMounted) {
     return <h1>Cargando entrenamientos...</h1>
   }
 
-  if(error !== ''){
+  if (error !== '') {
     return error
   }
 
@@ -36,43 +60,74 @@ export default function Entrenamientos() {
       <h1 className='text-center'>¿Qué vamos a entrenar hoy?</h1>
       <div className="grid grid-cols-2 gap-4 ">
         {data.map((e) => (
-          <Link
-            href={`/entrenamientos/${e.entrenamientoId}`}
-            key={e.entrenamientoId}
-          >
-            <div className="max-w-md mx-auto rounded overflow-hidden shadow-lg hover:shadow-xl transition duration-500 !bg-gray-900" key={e.entrenamientoId} suppressHydrationWarning={true}>
-              <div className="relative h-auto">
-                <Image
-                  className="w-full h-auto"
-                  width={400}
-                  height={400}
-                  src={e.img}
-                  alt="Entrenamiento"
-                />
-              </div>
-              <div className="px-6 py-4">
-                <div className="font-bold text-xl mb-2">{e.musculo}</div>
-                <p className="text-white text-base">Breve descripcion</p>
-              </div>
-              <div className="px-6 pt-4 pb-2">
-                <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                  {`#${e.hashtag[0]}`}
-                </span>
-                <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                  {`#${e.hashtag[1]}`}
-                </span>
-                <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                  {`#${e.hashtag[2]}`}
-                </span>
-              </div>
+          <div className="max-w-md mx-auto rounded overflow-hidden shadow-lg hover:shadow-xl transition duration-500 !bg-gray-900" key={e.entrenamientoId} suppressHydrationWarning={true}>
+            <div className="relative h-auto">
+              <Link
+                href={`/entrenamientos/${e.entrenamientoId}`}
+                key={e.entrenamientoId}
+              >
+                <div>
+                  <Image
+                    className="w-full h-auto"
+                    width={400}
+                    height={400}
+                    src={e.img}
+                    alt="Entrenamiento"
+                  />
+                </div>
+                <div className="px-6 py-4">
+                  <div className="font-bold text-xl mb-2 text-center">{e.musculo}</div>
+                  <p className="text-white text-center">Breve descripcion</p>
+                </div>
+              </Link>
             </div>
-          </Link>
+            <div className="text-white text-center">
+              Intensidad:
+            <div className=" relative px-6 pt-4 pb-2">
+              <span className={calcularClassName(e.prioridad)}>
+                <b>{e.prioridad}</b>
+              </span>
+              <Image
+                onClick={() => setIsModalOpen(true)}
+                className='absolute !bottom-4 !right-4'
+                alt='Icono de basura, eliminar'
+                src={"/iconos/basuras.png"}
+                width={30}
+                height={30}>
+              </Image>
+                  </div>
+            </div>
+            <ReactModal
+              className="custom-modal"
+              isOpen={isModalOpen}
+              style={{
+                overlay: {
+                  backgroundColor: 'rgba(0, 0, 0, 0.5)'
+                },
+                content: {
+                  width: '250px',
+                  height: '200px',
+                  margin: 'auto'
+                }
+              }} >
+              <h3 className='entreno text-center'>¿Estás seguro que quieres eliminar este entrenamiento?</h3>
+              <div className='grid grid-cols-2 gap-4 content-center'>
+                <button type="button" class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" onClick={() => eliminarEntrenamiento(e.entrenamientoId)}>Eliminar</button>
+                <button type="button" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" onClick={() => setIsModalOpen(false)}>Cancelar</button>
+              </div>
+            </ReactModal>
+          </div>
+
         ))}
+
       </div>
       <br />
       <Link href={`/entrenamientos/guardarEntrenamiento`}>
         <button>Añadir un músculo</button>
       </Link>
+      <div>
+
+      </div>
     </div>
   )
 }

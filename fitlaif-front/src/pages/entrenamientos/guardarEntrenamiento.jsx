@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import { toast } from "react-toastify";
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 export default function GuardarEntrenamiento() {
+    const router = useRouter()
     const [entrenamientoId, setEntrenamientoId] = useState('');
     const [musculo, setMusculo] = useState('');
     const [img, setImg] = useState('');
-    const [hashtag, setHashtag] = useState([]);
+    const [prioridad, setprioridad] = useState([]);
     const [ultimoId, setUltimoId] = useState('')
 
     const fetchData = async () => {
@@ -13,6 +15,7 @@ export default function GuardarEntrenamiento() {
         const data = await response.json()
         setUltimoId(data.length + 1)
     }
+
     useEffect(() => {
         fetchData()
         setEntrenamientoId(ultimoId)
@@ -21,19 +24,17 @@ export default function GuardarEntrenamiento() {
     }, [entrenamientoId, ultimoId])
 
     const handleSubmit = async (event) => {
-        event.preventDefault();
-
-        // Crear objeto con los datos del formulario
+        event.preventDefault()
         const data = {
             entrenamientoId,
             musculo,
             img,
-            hashtag
+            prioridad
         }
 
         try {
             if (musculo != null && musculo.trim().length) {
-                if (hashtag != null && hashtag.length) {
+                if (prioridad != null && prioridad.trim().length) {
                     const response = await fetch('http://localhost:8080/entrenamientos/guardar', {
                         method: 'POST',
                         headers: {
@@ -43,17 +44,18 @@ export default function GuardarEntrenamiento() {
                     })
                     setMusculo('');
                     setImg('');
-                    setHashtag([]);
+                    setprioridad([]);
 
                     if (response.ok) {
                         toast.success('¡WOOOOOW! Tenemos otro músculo más, ¡a mutar!')
+                        router.push('/entrenamientos')
                         
                     } else {
                         toast.error('Parece que ya estamos trabajando ese músculo...');
                     }
                 }
                 else {
-                    toast.error('¿Ni un hastag?¿Dónde quedó la motivación? ¡Añade al menos uno!')
+                    toast.error('¿Que prioridad tiene este músculo en tus rutinas?')
                 }
             }
 
@@ -77,9 +79,9 @@ export default function GuardarEntrenamiento() {
                     </div>
                     <div className="w-full md:w-1/2 px-3">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
-                            HASHTAG
+                            prioridad
                         </label>
-                        <input value={hashtag.join(',')} onChange={(e) => setHashtag(e.target.value.split(',').map(String))} name="hashtag[]" multiple className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="#gym" />
+                        <input value={prioridad.join(',')} onChange={(e) => setprioridad(e.target.value.split(',').map(String))} name="prioridad[]" multiple className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="#gym" />
                     </div>
                 </div>
                 <button type="submit">Enviar</button>

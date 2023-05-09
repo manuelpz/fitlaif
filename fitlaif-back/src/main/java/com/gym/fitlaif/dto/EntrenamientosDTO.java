@@ -25,5 +25,5 @@ public class EntrenamientosDTO {
 	
 	private String img;
 	
-	private List<String> hashtag;
+	private String prioridad;
 }

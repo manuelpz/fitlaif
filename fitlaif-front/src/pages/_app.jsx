@@ -1,4 +1,5 @@
 import '@/styles/globals.css'
+import '@/styles/modal.css'
 import Head from 'next/head'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

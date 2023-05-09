@@ -15,7 +15,7 @@ public class EntrenamientosMapper {
 		entrenamientoDTO.setEntrenamientoId(entrenamiento.getEntrenamientoId());
 		entrenamientoDTO.setMusculo(entrenamiento.getMusculo());
 		entrenamientoDTO.setImg(entrenamiento.getImg());
-		entrenamientoDTO.setHashtag(entrenamiento.getHashtag());
+		entrenamientoDTO.setPrioridad(entrenamiento.getPrioridad());
 		return entrenamientoDTO;
 	}
 	
@@ -26,7 +26,7 @@ public class EntrenamientosMapper {
 			entrenamientoDTO.setEntrenamientoId(entrenamiento.getEntrenamientoId());
 			entrenamientoDTO.setMusculo(entrenamiento.getMusculo());
 			entrenamientoDTO.setImg(entrenamiento.getImg());
-			entrenamientoDTO.setHashtag(entrenamiento.getHashtag());
+			entrenamientoDTO.setPrioridad(entrenamiento.getPrioridad());
 			entrenamientosDTO.add(entrenamientoDTO);
 		}
 		return entrenamientosDTO;		

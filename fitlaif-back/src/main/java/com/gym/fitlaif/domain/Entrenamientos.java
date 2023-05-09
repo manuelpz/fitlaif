@@ -26,5 +26,5 @@ public class Entrenamientos {
 	
 	private String img;
 	
-	private List<String> hashtag;
+	private String prioridad;
 }

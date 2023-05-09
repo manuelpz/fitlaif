@@ -96,10 +96,7 @@ public class EjerciciosServiceImpl implements EjerciciosService{
 	        		ejercicio = ejercicioA;
 	        		}
 	        }
-	        if(ejercicio == null) {
-	        	return null;
-	        }
-	        else return ejercicio;
+		return ejercicio;
 	}
 	
 	public void persistirEjercicio(Ejercicios ejercicio, DocumentReference document) {
@@ -111,7 +108,7 @@ public class EjerciciosServiceImpl implements EjerciciosService{
 
 	@Override
 	public List<EjerciciosDTO> obtenerTodosLosEjercicios() throws Exception {
-		List<Ejercicios> ejercicios = new ArrayList<Ejercicios>();
+		List<Ejercicios> ejercicios = new ArrayList<>();
 		CollectionReference collection = firestore.collection("ejercicios");
 		ApiFuture<QuerySnapshot> querySnapshot = collection.get();
 		 List<QueryDocumentSnapshot> documents = querySnapshot.get().getDocuments();
