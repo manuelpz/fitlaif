@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import ReactModal from 'react-modal';
+import Headers from '../components/Headers';
 
 
 export default function Entrenamientos() {
@@ -48,15 +49,26 @@ export default function Entrenamientos() {
   }, [])
 
   if (!isMounted) {
-    return <h1>Cargando entrenamientos...</h1>
+    return (
+      <>
+        <Headers title={'Entrenamientos'} description={'Guarda, selecciona, borra, o edita tus entrenamientos'}></Headers>
+        <h1>Cargando entrenamientos...</h1>
+      </>
+    )
   }
 
   if (error !== '') {
-    return error
+    return (
+      <>
+        <Headers title={'Entrenamientos'} description={'Guarda, selecciona, borra, o edita tus entrenamientos'}></Headers>
+        {error}
+      </>
+    )
   }
 
   return (
     <div className="container mx-auto">
+      <Headers title={'Entrenamientos'} description={'Guarda, selecciona, borra, o edita tus entrenamientos'}></Headers>
       <h1 className='text-center'>¿Qué vamos a entrenar hoy?</h1>
       <div className="grid grid-cols-2 gap-4 ">
         {data.map((e) => (
@@ -82,20 +94,20 @@ export default function Entrenamientos() {
               </Link>
             </div>
             <div className="text-white text-center">
-              Intensidad:
-            <div className=" relative px-6 pt-4 pb-2">
-              <span className={calcularClassName(e.prioridad)}>
-                <b>{e.prioridad}</b>
-              </span>
-              <Image
-                onClick={() => setIsModalOpen(true)}
-                className='absolute !bottom-4 !right-4'
-                alt='Icono de basura, eliminar'
-                src={"/iconos/basuras.png"}
-                width={30}
-                height={30}>
-              </Image>
-                  </div>
+              Prioridad / Frecuencia 
+              <div className=" relative px-6 pt-4 pb-2">
+                <span className={calcularClassName(e.prioridad)}>
+                  <b>{e.prioridad}</b>
+                </span>
+                <Image
+                  onClick={() => setIsModalOpen(true)}
+                  className='absolute !bottom-4 !right-4'
+                  alt='Icono de basura, eliminar'
+                  src={"/iconos/basuras.png"}
+                  width={30}
+                  height={30}>
+                </Image>
+              </div>
             </div>
             <ReactModal
               className="custom-modal"

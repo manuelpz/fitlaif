@@ -2,13 +2,19 @@ import { useEffect, useState } from 'react'
 import { toast } from "react-toastify";
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Headers from '../../components/Headers';
+
 export default function GuardarEntrenamiento() {
     const router = useRouter()
     const [entrenamientoId, setEntrenamientoId] = useState('');
     const [musculo, setMusculo] = useState('');
     const [img, setImg] = useState('');
-    const [prioridad, setprioridad] = useState([]);
+    const [prioridad, setprioridad] = useState('');
     const [ultimoId, setUltimoId] = useState('')
+
+    const handleOptionChange = (event) => {
+        setprioridad(event.target.value);
+    };
 
     const fetchData = async () => {
         const response = await fetch('http://localhost:8080/entrenamientos')
@@ -49,7 +55,7 @@ export default function GuardarEntrenamiento() {
                     if (response.ok) {
                         toast.success('¡WOOOOOW! Tenemos otro músculo más, ¡a mutar!')
                         router.push('/entrenamientos')
-                        
+
                     } else {
                         toast.error('Parece que ya estamos trabajando ese músculo...');
                     }
@@ -68,6 +74,7 @@ export default function GuardarEntrenamiento() {
     }
     return (
         <div>
+            <Headers title={'Nuevo músculo'} description={'Guarda tu nuevo musculo para luego entrenarlo'}></Headers>
             <form onSubmit={handleSubmit} className="w-full max-w-lg">
                 <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -81,12 +88,40 @@ export default function GuardarEntrenamiento() {
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
                             prioridad
                         </label>
-                        <input value={prioridad.join(',')} onChange={(e) => setprioridad(e.target.value.split(',').map(String))} name="prioridad[]" multiple className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="#gym" />
+                        <label>
+                            <input
+                                type="radio"
+                                value="Alta"
+                                checked={prioridad === 'Alta'}
+                                onChange={handleOptionChange}
+                            />
+                            Alta
+                        </label>
+                        <br />
+                        <label>
+                            <input
+                                type="radio"
+                                value="Media"
+                                checked={prioridad === 'Media'}
+                                onChange={handleOptionChange}
+                            />
+                            Media
+                        </label>
+                        <br />
+                        <label>
+                            <input
+                                type="radio"
+                                value="Baja"
+                                checked={prioridad === 'Baja'}
+                                onChange={handleOptionChange}
+                            />
+                            Baja
+                        </label>
                     </div>
                 </div>
                 <button type="submit">Enviar</button>
                 <Link href={'/entrenamientos'}>
-                <button >Volver</button>
+                    <button >Volver</button>
                 </Link>
             </form>
         </div>

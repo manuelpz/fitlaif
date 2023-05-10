@@ -1,6 +1,5 @@
 import { useRouter } from "next/router"
 
-
 export default function Rutina() {
   const router = useRouter()
   const { id } = router.query
