@@ -39,7 +39,6 @@ export default function Entrenamientos() {
     if (prioridad == 'Baja') {
       return 'inline-block bg-green-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'
     }
-
   }
 
 
@@ -70,7 +69,7 @@ export default function Entrenamientos() {
     <div className="container mx-auto">
       <Headers title={'Entrenamientos'} description={'Guarda, selecciona, borra, o edita tus entrenamientos'}></Headers>
       <h1 className='text-center'>¿Qué vamos a entrenar hoy?</h1>
-      <div className="grid grid-cols-2 gap-4 ">
+      <div className="grid grid-cols-3 gap-4 ">
         {data.map((e) => (
           <div className="max-w-md mx-auto rounded overflow-hidden shadow-lg hover:shadow-xl transition duration-500 !bg-gray-900" key={e.entrenamientoId} suppressHydrationWarning={true}>
             <div className="relative h-auto">

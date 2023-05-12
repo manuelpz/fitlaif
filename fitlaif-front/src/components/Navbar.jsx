@@ -35,7 +35,7 @@ const Navbar = () => {
                             <Link className={router.pathname == '/peso' ? 'active' : 'nonActive'} href="/peso">
                                 Peso
                             </Link>
-                            <Link className={router.pathname == '/contacto' ? 'active' : 'nonActive'}  href="/contacto">
+                            <Link className={router.pathname == '/contacto' ? 'active' : 'nonActive'} href="/contacto">
                                 Contacto
                             </Link>
                         </div>
@@ -69,24 +69,24 @@ const Navbar = () => {
                 <div className="md:hidden">
                     <ul className="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-right">
                         <li className="block">
-                            <Link className='text-white hover:bg-white hover:text-black items-center'  href="/">
-                            Inicio
-                        </Link>
+                            <Link className='text-white hover:bg-white hover:text-black items-center' href="/">
+                                Inicio
+                            </Link>
                         </li>
                         <li className="block">
                             <Link className='text-white hover:bg-white hover:text-black items-center' href="/entrenamientos">
-                            Entrenamientos
-                        </Link>
+                                Entrenamientos
+                            </Link>
                         </li>
                         <li className="block">
                             <Link className='text-white hover:bg-white hover:text-black items-center' href="/peso">
-                            Peso
-                        </Link>
+                                Peso
+                            </Link>
                         </li>
                         <li className="block">
                             <Link className='text-white hover:bg-white hover:text-black items-center' href="/contacto">
-                            Contacto
-                        </Link>
+                                Contacto
+                            </Link>
                         </li>
                     </ul>
                 </div>
