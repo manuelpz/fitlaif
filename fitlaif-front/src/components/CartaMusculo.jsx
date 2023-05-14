@@ -3,11 +3,14 @@ import { useState } from "react";
 
 export default function CartaMusculo({ ejerciciosElegidos }) {
     const [visibleDiv, setVisibleDiv] = useState(0);
+    const [completado, setCompletado] = useState([]);
 
+    //MANJEA QUE SE VEA EL SIGUIENTE EJERCICIO
     const handleClickDerecha = () => {
         setVisibleDiv((prevVisibleDiv) => (prevVisibleDiv + 1) % ejerciciosElegidos.length);
     }
 
+    //MANJEA QUE SE VEA EL EJERCICIO ANTERIOR
     const handleClickIzquierda = () => {
         if (visibleDiv === 0) {
             setVisibleDiv(ejerciciosElegidos.length - 1);
@@ -17,6 +20,20 @@ export default function CartaMusculo({ ejerciciosElegidos }) {
         }
     }
 
+    //AÑADE UN ELEMENTO A UN ARRAY DE EJERCICIOS COMPLETADO
+    const agregarElemento = () => {
+        const nuevoElemento = ejerciciosElegidos[visibleDiv];
+        setCompletado([...completado, nuevoElemento]);
+    }
+
+    //FUNCION QUE TACHA EL EJERCICIO
+    const completarCarta = () => {
+        if (completado.includes(ejerciciosElegidos[visibleDiv])) {
+            return 'line-through'
+        }
+    }
+
+    //RENDERIZADO NORMAL
     return (
         <div>
             <div>
@@ -28,11 +45,11 @@ export default function CartaMusculo({ ejerciciosElegidos }) {
                     >
                         <div className="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 justify-self-center leading-normal h-96 w-96 absolute transform -translate-x-1/2 w-32 h-32">
                             <div className="mb-8">
-                                <div className="text-gray-900 font-bold text-xl mb-2 text-center">
+                                <div className={`text-gray-900 font-bold text-xl mb-2 text-center ${completarCarta()}`}>
                                     {e.ejercicio}
                                 </div>
-                                <p className="text-gray-700 text-base">Series: {e.series}</p>
-                                <p className="text-gray-700 text-base">
+                                <p className={`text-gray-700 text-base ${completarCarta()}`}>Series: {e.series}</p>
+                                <p className={`text-gray-700 text-base ${completarCarta()}`}>
                                     Repeticiones: {e.repeticiones}
                                 </p>
                             </div>
@@ -54,6 +71,11 @@ export default function CartaMusculo({ ejerciciosElegidos }) {
                                     alt="flecha hacia la derecha"
                                     onClick={handleClickDerecha} />
                             </div>
+                                <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-fulld"
+                                    onClick={agregarElemento}>
+                                    Completado!
+                                </button>
+                                <p className={`text-gray-700 text-base `}>{index+1}/{ejerciciosElegidos.length}</p>     
                         </div>
                     </div>
                 ))}
