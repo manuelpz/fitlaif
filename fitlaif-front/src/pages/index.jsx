@@ -1,10 +1,13 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import Headers from '@/components/Headers'
-const inter = Inter({ subsets: ['latin'] })
+import React from 'react';
+import VideoBackground from '../components/VideoBackground';
+import Headers from '../components/Headers';
 
-export default function Home() {
+const Inicio = () => {
   return (
-    <h1></h1>
-        )
-}
+    <>
+    <Headers title='Inicio' description='Inicio de la web de FitLaif'></Headers>
+      <VideoBackground />
+    </>);
+};
+
+export default Inicio;

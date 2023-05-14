@@ -30,10 +30,15 @@ a{
 }
 
 .active{
-  color: #E8E8E8;
+  color: black;
   font-weight: bold;
+  border: 3px solid lightgray !important;
+  border-radius: 8px;
+  padding: 8px;
+  background-color: lightgray !important;
 }
 
 .nonActive{
-  color: #E8E8E8;
+  color: oldlace;
+  font-weight: bold;
 }

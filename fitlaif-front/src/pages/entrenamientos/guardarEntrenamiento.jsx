@@ -25,8 +25,6 @@ export default function GuardarEntrenamiento() {
     useEffect(() => {
         fetchData()
         setEntrenamientoId(ultimoId)
-        console.log(entrenamientoId)
-
     }, [entrenamientoId, ultimoId])
 
     const handleSubmit = async (event) => {

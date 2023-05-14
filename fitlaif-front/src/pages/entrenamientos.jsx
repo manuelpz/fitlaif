@@ -31,13 +31,13 @@ export default function Entrenamientos() {
 
   const calcularClassName = (prioridad) => {
     if (prioridad == 'Alta') {
-      return 'inline-block bg-red-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'
+      return 'bg-red-500 '
     }
     if (prioridad == 'Media') {
-      return 'inline-block bg-yellow-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'
+      return 'bg-yellow-500'
     }
     if (prioridad == 'Baja') {
-      return 'inline-block bg-green-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'
+      return 'bg-green-500'
     }
   }
 
@@ -67,7 +67,7 @@ export default function Entrenamientos() {
 
   return (
     <div className="container mx-auto">
-      <Headers title={'Entrenamientos'} description={'Guarda, selecciona, borra, o edita tus entrenamientos'}></Headers>
+      <Headers title='Entrenamientos' description='Guarda, selecciona, borra, o edita tus entrenamientos'></Headers>
       <h1 className='text-center'>¿Qué vamos a entrenar hoy?</h1>
       <div className="grid grid-cols-3 gap-4 ">
         {data.map((e) => (
@@ -95,7 +95,7 @@ export default function Entrenamientos() {
             <div className="text-white text-center">
               Prioridad / Frecuencia 
               <div className=" relative px-6 pt-4 pb-2">
-                <span className={calcularClassName(e.prioridad)}>
+                <span className={'inline-block rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 text-white '+calcularClassName(e.prioridad)}>
                   <b>{e.prioridad}</b>
                 </span>
                 <Image
