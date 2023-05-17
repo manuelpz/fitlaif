@@ -1,9 +1,29 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef } from "react";
+
 
 export default function CartaMusculo({ ejerciciosElegidos }) {
     const [visibleDiv, setVisibleDiv] = useState(0);
     const [completado, setCompletado] = useState([]);
+    const touchStartRef = useRef(null);
+
+    //MANJEAR EL TOQUE DE MOVIL (ARRASTRAR DEDO)
+    const handleTouchStart = (event) => {
+        touchStartRef.current = event.touches[0].clientX;
+    }
+
+    const handleTouchEnd = (event) => {
+        const touchEnd = event.changedTouches[0].clientX;
+        const touchDiff = touchStartRef.current - touchEnd;
+
+        if (touchDiff > 0) {
+            // Deslizamiento hacia la izquierda
+            handleClickDerecha();
+        } else if (touchDiff < 0) {
+            // Deslizamiento hacia la derecha
+            handleClickIzquierda();
+        }
+    }
 
     //MANJEA QUE SE VEA EL SIGUIENTE EJERCICIO
     const handleClickDerecha = () => {
@@ -40,6 +60,8 @@ export default function CartaMusculo({ ejerciciosElegidos }) {
                 <div
                     key={e.ejercicioId}
                     className={`justify-center flex ${index === visibleDiv ? "z-10" : "hidden"}`}
+                    onTouchStart={handleTouchStart}
+                    onTouchEnd={handleTouchEnd}
                 >
                     <div className="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 justify-self-center leading-normal lg:h-max lg:w-max h-100 w-80 absolute transform -translate-x-1/2">
                         <div className={`text-gray-900 font-bold text-xl mb-2 text-center ${completarCarta()}`}>
