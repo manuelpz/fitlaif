@@ -15,4 +15,5 @@ public class EjerciciosDTO {
 	private String musculo;
 	private String series;
 	private String repeticiones;
+	private String img;
 }

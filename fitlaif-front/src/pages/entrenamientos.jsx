@@ -1,26 +1,14 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import ReactModal from 'react-modal';
 import Headers from '../components/Headers';
-
+import { useFetch } from '../funciones/useFetch';
+import estilos from '../components/Modal.module.css';
 
 export default function Entrenamientos() {
-  const [isMounted, setIsMounted] = useState(false)
-  const [data, setData] = useState([])
-  const [error, setError] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const fetchData = async () => {
-    try {
-      const response = await fetch('http://localhost:8080/entrenamientos')
-      const data = await response.json()
-      setData(data)
-    }
-    catch (e) {
-      setError("Hubo un error al obtener los entrenamientos, por favor contacte con un administrador")
-    }
-  }
+  const MENSAJE_DE_ERROR = 'Algo no ha ido bien y no hemos podido recuperar los entrenamientos... Por favor, contacta con un administrador'
 
   const eliminarEntrenamiento = async (id) => {
     fetch(`http://localhost:8080/entrenamientos/eliminar/${id}`, {
@@ -41,26 +29,33 @@ export default function Entrenamientos() {
     }
   }
 
+  const {data, loading, error} = useFetch('http://localhost:8080/entrenamientos')
 
-  useEffect(() => {
-    fetchData()
-    setIsMounted(true)
-  }, [])
 
-  if (!isMounted) {
+  if (loading) {
     return (
       <>
         <Headers title={'Entrenamientos'} description={'Guarda, selecciona, borra, o edita tus entrenamientos'}></Headers>
-        <h1>Cargando entrenamientos...</h1>
+        <div className="spinnerContainer">
+          <div className="spinner"></div>
+          <div className="loader">
+            <p>Cargando</p>
+            <div className="words">
+              <span className="word">entrenamientos</span>
+              <span className="word">pilas</span>
+              <span className="word">energia</span>
+            </div>
+          </div>
+        </div>
       </>
     )
   }
 
-  if (error !== '') {
+  if (error) {
     return (
       <>
         <Headers title={'Entrenamientos'} description={'Guarda, selecciona, borra, o edita tus entrenamientos'}></Headers>
-        {error}
+        {MENSAJE_DE_ERROR}
       </>
     )
   }
@@ -70,7 +65,7 @@ export default function Entrenamientos() {
       <Headers title='Entrenamientos' description='Guarda, selecciona, borra, o edita tus entrenamientos'></Headers>
       <h1 className='text-center'>¿Qué vamos a entrenar hoy?</h1>
       <div className="grid grid-cols-3 gap-4 ">
-        {data.map((e) => (
+        {data?.map((e) => (
           <div className="max-w-md mx-auto rounded overflow-hidden shadow-lg hover:shadow-xl transition duration-500 !bg-gray-900" key={e.entrenamientoId} suppressHydrationWarning={true}>
             <div className="relative h-auto">
               <Link
@@ -109,7 +104,7 @@ export default function Entrenamientos() {
               </div>
             </div>
             <ReactModal
-              className="custom-modal"
+              className={estilos.customModal}
               isOpen={isModalOpen}
               style={{
                 overlay: {
@@ -121,10 +116,10 @@ export default function Entrenamientos() {
                   margin: 'auto'
                 }
               }} >
-              <h3 className='entreno text-center'>¿Estás seguro que quieres eliminar este entrenamiento?</h3>
+              <h3 className={`${estilos.entreno} text-center`}>¿Estás seguro que quieres eliminar este entrenamiento?</h3>
               <div className='grid grid-cols-2 gap-4 content-center'>
-                <button type="button" class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" onClick={() => eliminarEntrenamiento(e.entrenamientoId)}>Eliminar</button>
-                <button type="button" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" onClick={() => setIsModalOpen(false)}>Cancelar</button>
+                <button type="button" className="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" onClick={() => eliminarEntrenamiento(e.entrenamientoId)}>Eliminar</button>
+                <button type="button" className="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" onClick={() => setIsModalOpen(false)}>Cancelar</button>
               </div>
             </ReactModal>
           </div>

@@ -25,4 +25,6 @@ public class Ejercicios {
 	private String repeticiones;
 	
 	private String series;
+	
+	private String img;
 }

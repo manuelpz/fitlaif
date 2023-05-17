@@ -1,10 +1,9 @@
 package com.gym.fitlaif.domain;
 
-import java.util.List;
-
 import javax.validation.constraints.NotBlank;
 
 import org.springframework.data.annotation.Id;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,4 +26,6 @@ public class Entrenamientos {
 	private String img;
 	
 	private String prioridad;
+	
+	private String descripcion;
 }

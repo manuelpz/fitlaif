@@ -2,7 +2,6 @@ import { useRouter } from "next/router"
 import { useState, useEffect } from "react"
 import Headers from "../../../components/Headers"
 import CartaMusculo from "../../../components/CartaMusculo"
-
 export default function Rutina() {
   const [ejercicio, setEjercicio] = useState([])
   const router = useRouter()
@@ -31,7 +30,17 @@ export default function Rutina() {
     return (
       <div>
         <Headers title="Rutina" />
-        <h1>Cargando ejercicios...</h1>
+        <div className="spinnerContainer">
+          <div className="spinner"></div>
+          <div className="loader">
+            <p>Cargando</p>
+            <div className="words">
+              <span className="word">entrenamientos</span>
+              <span className="word">pilas</span>
+              <span className="word">energia</span>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
@@ -51,7 +60,7 @@ export default function Rutina() {
   return (
     <div>
       <Headers title={'Rutina'} description={'Rutina preparada por FitLaif'} />
-      <CartaMusculo ejerciciosElegidos={ejerciciosElegidos ? ejerciciosElegidos : []}/>
+      <CartaMusculo ejerciciosElegidos={ejerciciosElegidos ? ejerciciosElegidos : []} />
     </div>
   )
 }

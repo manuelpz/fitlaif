@@ -1,6 +1,5 @@
 package com.gym.fitlaif.dto;
 
-import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
@@ -26,4 +25,6 @@ public class EntrenamientosDTO {
 	private String img;
 	
 	private String prioridad;
+	
+	private String descripcion;
 }

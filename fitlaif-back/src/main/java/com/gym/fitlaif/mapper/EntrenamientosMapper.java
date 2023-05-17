@@ -16,6 +16,7 @@ public class EntrenamientosMapper {
 		entrenamientoDTO.setMusculo(entrenamiento.getMusculo());
 		entrenamientoDTO.setImg(entrenamiento.getImg());
 		entrenamientoDTO.setPrioridad(entrenamiento.getPrioridad());
+		entrenamientoDTO.setDescripcion(entrenamiento.getDescripcion());
 		return entrenamientoDTO;
 	}
 	
@@ -27,6 +28,7 @@ public class EntrenamientosMapper {
 			entrenamientoDTO.setMusculo(entrenamiento.getMusculo());
 			entrenamientoDTO.setImg(entrenamiento.getImg());
 			entrenamientoDTO.setPrioridad(entrenamiento.getPrioridad());
+			entrenamientoDTO.setDescripcion(entrenamiento.getDescripcion());
 			entrenamientosDTO.add(entrenamientoDTO);
 		}
 		return entrenamientosDTO;		

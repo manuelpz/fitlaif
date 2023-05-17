@@ -19,6 +19,7 @@ public class EjerciciosMapper {
 		ejercicioDTO.setMusculo(ejercicio.getMusculo());
 		ejercicioDTO.setRepeticiones(ejercicio.getRepeticiones());
 		ejercicioDTO.setSeries(ejercicio.getSeries());
+		ejercicioDTO.setImg(ejercicio.getImg());
 		return ejercicioDTO;
 	}
 	
@@ -31,6 +32,7 @@ public class EjerciciosMapper {
 		ejercicioDTO.setMusculo(ejercicio.getMusculo());
 		ejercicioDTO.setRepeticiones(ejercicio.getRepeticiones());
 		ejercicioDTO.setSeries(ejercicio.getSeries());
+		ejercicioDTO.setImg(ejercicio.getImg());
 		ejerciciosDTO.add(ejercicioDTO);
 		}
 		return ejerciciosDTO;
