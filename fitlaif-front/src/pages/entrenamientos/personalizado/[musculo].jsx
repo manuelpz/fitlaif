@@ -1,57 +1,155 @@
-import { useRouter } from "next/router"
-import { useState, useEffect } from "react"
-import Headers from "../../../components/Headers"
-import CartaMusculo from "../../../components/CartaMusculo"
+import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
+import Headers from "../../../components/Headers";
+import Image from "next/image";
+import Confetti from 'react-confetti';
+import ReactModal from 'react-modal';
+import estilos from '../../../components/Modal.module.css';
 
 export default function Rutina() {
-  const [ejercicio, setEjercicio] = useState([])
-  const router = useRouter()
-  let contador = 0
-  let ejerciciosElegidos = []
-  const { musculo } = router.query
+  const [ejercicio, setEjercicio] = useState([]);
+  const router = useRouter();
+  const [misEjercicios, setMisEjercicios] = useState([]);
+  const [enable, setEnable] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(true);
+  const { musculo } = router.query;
+
+  //FUNCIONES
+  const reload = () => {
+    window.location.reload();
+  }
+
+  const irAEntrenamientos = () =>{
+    router.push("/entrenamientos");
+  }
+
+  const seleccionarEjercicio = (ejercicioSeleccionado) => {
+    setMisEjercicios([...misEjercicios, ejercicioSeleccionado])
+  }
+
+  const estaSeleccionado = (ejercicio) => {
+    if (misEjercicios.includes(ejercicio)) {
+      return '!bg-red-500'
+    }
+  }
+
+  const handleCompletado = (index) => {
+    setMisEjercicios((prevMisEjercicios) => {
+      const updatedMisEjercicios = [...prevMisEjercicios];
+      updatedMisEjercicios[index].completado = true;
+      return updatedMisEjercicios;
+    })
+  }
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('http://localhost:8080/ejercicios')
-      const data = await response.json()
-      setEjercicio(data.filter(e => e.musculo.toLowerCase() === musculo.toLocaleLowerCase()))
+      const response = await fetch("http://localhost:8080/ejercicios");
+      const data = await response.json();
+      setEjercicio(data.filter((e) => e.musculo.toLowerCase() === musculo.toLowerCase()));
     }
     if (musculo) {
-      fetchData()
+      fetchData();
     }
-  }, [musculo])
-
-  //FUNCION PARA OBTENER NUMEROS ALEATORIOS
-  const obtenerEntrenamientosAleatorios = (entrenamientos) => {
-    return Math.floor(Math.random() * entrenamientos)
-  }
+  }, [musculo]);
 
   //PÁGINA QUE MUESTRO MIENTRAS CARGA LOS EJERCICIOS
   if (ejercicio.length === 0) {
     return (
       <div>
-        <Headers title="Rutina" />
+        <Headers title="Entreamiento | FitLaif" />
         <h1>Cargando ejercicios...</h1>
       </div>
     )
   }
 
-  //ELIGE 4 EJERCICIOS ALEATORIOS
-  if (ejercicio.length > 0) {
-    while (contador != 4) {
-      let elegido = ejercicio[obtenerEntrenamientosAleatorios(ejercicio.length)]
-      if (!ejerciciosElegidos.includes(elegido)) {
-        ejerciciosElegidos.push(elegido)
-        contador++
-      }
-    }
+  //RENDERIZADO NORMAL ELIGIENDO EJERCICIOS
+  if (enable === false) {
+    return (
+      <div className="container mx-auto">
+        <Headers title={"Entreamiento | FitLaif"} description={"Entrenamiento personalizado | FitLaif"} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center">
+          {ejercicio.map((e) => (
+            <div onClick={() => seleccionarEjercicio(e)} key={e.ejercicioId} className={`max-w-md w-full rounded overflow-hidden shadow-lg bg-gray-900 text-white ${estaSeleccionado(e)}`}>
+              <div className="p-4">
+                <div className="font-bold text-center">{e.ejercicio.toUpperCase()}</div>
+                {e.img ? (
+                  <div className="mt-4">
+                    <Image className="w-full h-auto" src={e.img} width={300} height={300} alt="Imagen explicativa del ejercicio" />
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
+            </div>
+          ))}
+        </div><br />
+        <button type="button" onClick={() => setEnable(true)}>Comenzar</button>
+      </div>
+    );
   }
 
-  //RENDERIZADO NORMAL
-  return (
-    <div>
-      <Headers title={'Rutina'} description={'Rutina preparada por FitLaif'} />
-      <CartaMusculo ejerciciosElegidos={ejerciciosElegidos ? ejerciciosElegidos : []}/>
-    </div>
-  )
+  //RENDERIZADO NORMAL CON LOS EJERCICIOS YA ELEGIDOS
+  if (misEjercicios.length > 0 && enable === true) {
+    const todosCompletados = misEjercicios.every((e) => e.completado)
+    return (
+      <div className="container mx-auto">
+        <Headers title={"Entrenamiento | FitLaif"} description={"Entrenamiento personalizado | FitLaif"} />
+        <div className="flex flex-col items-center">
+          {misEjercicios.map((e, index) => (
+            <div key={e.ejercicioId} className={`relative max-w-md w-full rounded overflow-hidden shadow-lg bg-gray-900 text-white mb-6 ${e.completado ? 'line-through' : ''}`}>
+              <div className="p-4">
+                <div className="absolute top-0 left-0 w-8 h-8 flex items-center justify-center bg-white text-black rounded-full font-bold">{index + 1}</div>
+                <div className="font-bold text-center">{e.ejercicio.toUpperCase()}</div>
+                {e.img ? (
+                  <div className="mt-4">
+                    <Image className="w-full h-auto" src={e.img} width={300} height={300} alt="Imagen explicativa del ejercicio" />
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
+              {!e.completado && (
+                <button className="absolute bottom-0 left-1/2 transform -translate-x-1/2 mb-2 py-1 px-2 bg-blue-500 text-white font-bold text-center text-xs" onClick={() => handleCompletado(index)}>
+                  Completado
+                </button>
+              )}
+            </div>
+          ))}
+          {todosCompletados && (
+            <Confetti width={window.innerWidth} height={window.innerHeight} />
+          )}
+          {todosCompletados && (<ReactModal
+            className={estilos.customModal}
+            isOpen={isModalOpen}
+            style={{
+              overlay: {
+                backgroundColor: 'rgba(0, 0, 0, 0.5)'
+              },
+              content: {
+                width: '250px',
+                height: '200px',
+                margin: 'auto'
+              }
+            }} >
+            <h3 className={`${estilos.entreno} text-center`}>¡ENHORABUENA! Has completado el entrenamiento de hoy</h3>
+            <div className='grid grid-cols-2 gap-4 content-center'>
+              <button type="button" className="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" onClick={irAEntrenamientos}>Volver</button>
+              <button type="button" className="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" onClick={() => setIsModalOpen(false)}>Quedarme aquí</button>
+            </div>
+          </ReactModal>)}
+        </div>
+      </div>
+    );
+  }
+
+
+  //SE PULSA EL BOTON SIN AÑADIR EJERCICIOS
+  if (misEjercicios.length === 0 && enable === true) {
+    return (
+      <div>
+        <h1>Añade ejercicios tio</h1>
+        <button type="button" onClick={reload}>Volver</button>
+      </div>
+    )
+  }
 }

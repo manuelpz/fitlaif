@@ -35,7 +35,7 @@ export default function Entrenamientos() {
   if (loading) {
     return (
       <>
-        <Headers title={'Entrenamientos'} description={'Guarda, selecciona, borra, o edita tus entrenamientos'}></Headers>
+        <Headers title={'Entrenamientos | FitLaif'} description={'Guarda, selecciona, borra, o edita tus entrenamientos'}></Headers>
         <div className="spinnerContainer">
           <div className="spinner"></div>
           <div className="loader">
@@ -54,7 +54,7 @@ export default function Entrenamientos() {
   if (error) {
     return (
       <>
-        <Headers title={'Entrenamientos'} description={'Guarda, selecciona, borra, o edita tus entrenamientos'}></Headers>
+        <Headers title={'Entrenamientos | FitLaif'} description={'Guarda, selecciona, borra, o edita tus entrenamientos'}></Headers>
         {MENSAJE_DE_ERROR}
       </>
     )
@@ -62,8 +62,9 @@ export default function Entrenamientos() {
 
   return (
     <div className="container mx-auto">
-      <Headers title='Entrenamientos' description='Guarda, selecciona, borra, o edita tus entrenamientos'></Headers>
+      <Headers title='Entrenamientos | Fitlaif' description='Guarda, selecciona, borra, o edita tus entrenamientos'></Headers>
       <h1 className='text-center'>¿Qué vamos a entrenar hoy?</h1>
+      <h3 className='text-center'>En esta sección podrás elegir uno de los siguientes músculo y nosotros te haremos una rutina compuesta de 4 ejercicios, o tú mismo elegirás los ejercicios y registrarás tus PR!🏋🏻‍♀️</h3>
       <div className="grid grid-cols-3 gap-4 ">
         {data?.map((e) => (
           <div className="max-w-md mx-auto rounded overflow-hidden shadow-lg hover:shadow-xl transition duration-500 !bg-gray-900" key={e.entrenamientoId} suppressHydrationWarning={true}>
@@ -93,14 +94,6 @@ export default function Entrenamientos() {
                 <span className={'inline-block rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 text-white '+calcularClassName(e.prioridad)}>
                   <b>{e.prioridad}</b>
                 </span>
-                <Image
-                  onClick={() => setIsModalOpen(true)}
-                  className='absolute !bottom-4 !right-4'
-                  alt='Icono de basura, eliminar'
-                  src={"/iconos/basuras.png"}
-                  width={30}
-                  height={30}>
-                </Image>
               </div>
             </div>
             <ReactModal
@@ -125,14 +118,8 @@ export default function Entrenamientos() {
           </div>
 
         ))}
-
       </div>
-      <br />
-      <Link href={`/entrenamientos/guardarEntrenamiento`}>
-        <button>Añadir un músculo</button>
-      </Link>
       <div>
-
       </div>
     </div>
   )
