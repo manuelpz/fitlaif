@@ -9,19 +9,30 @@ export default function CartaMusculo({ ejerciciosElegidos }) {
 
     //MANJEAR EL TOQUE DE MOVIL (ARRASTRAR DEDO)
     const handleTouchStart = (event) => {
-        touchStartRef.current = event.touches[0].clientX;
+        touchStartRef.current = {
+            x: event.touches[0].clientX,
+            y: event.touches[0].clientY
+        };
     }
 
     const handleTouchEnd = (event) => {
-        const touchEnd = event.changedTouches[0].clientX;
-        const touchDiff = touchStartRef.current - touchEnd;
+        const touchEnd = {
+            x: event.changedTouches[0].clientX,
+            y: event.changedTouches[0].clientY
+        };
 
-        if (touchDiff > 0) {
-            // Deslizamiento hacia la izquierda
-            handleClickDerecha();
-        } else if (touchDiff < 0) {
-            // Deslizamiento hacia la derecha
-            handleClickIzquierda();
+        const touchDiffX = touchStartRef.current.x - touchEnd.x;
+        const touchDiffY = touchStartRef.current.y - touchEnd.y;
+
+        if (Math.abs(touchDiffX) > Math.abs(touchDiffY)) {
+            // Movimiento horizontal
+            if (touchDiffX > 0) {
+                // Deslizamiento hacia la izquierda
+                handleClickDerecha();
+            } else if (touchDiffX < 0) {
+                // Deslizamiento hacia la derecha
+                handleClickIzquierda();
+            }
         }
     }
 
@@ -63,18 +74,19 @@ export default function CartaMusculo({ ejerciciosElegidos }) {
                     onTouchStart={handleTouchStart}
                     onTouchEnd={handleTouchEnd}
                 >
-                    <div className="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 justify-self-center leading-normal lg:h-max lg:w-max h-100 w-80 absolute transform -translate-x-1/2">
+                    <div className="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 justify-self-center h-100 w-80 absolute">
                         <div className={`text-gray-900 font-bold text-xl mb-2 text-center ${completarCarta()}`}>
                             {e.ejercicio.toUpperCase()}
                         </div>
                         {e.img ? (<div className="grid justify-items-center">
                             <Image className="center" src={e.img} width={300} height={300} alt="Imagen explicativa del ejercicio" />
-                        </div>): ''}
+                        </div>) : ''}
                         <div className="mb-8">
                             <p className={`text-gray-700 text-base ${completarCarta()}`}>Series: {e.series}</p>
                             <p className={`text-gray-700 text-base ${completarCarta()}`}>Repeticiones: {e.repeticiones}</p>
                         </div>
                         <div className="grid justify-items-center">
+                            <p className="text-gray-700 text-center">{e.descripcion}</p>
                             <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-fulld" onClick={agregarElemento}>
                                 Completado!
                             </button>

@@ -27,4 +27,6 @@ public class Ejercicios {
 	private String series;
 	
 	private String img;
+	
+	private String descripcion;
 }

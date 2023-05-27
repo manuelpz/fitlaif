@@ -65,8 +65,8 @@ export default function Entrenamientos() {
       <Headers title='Entrenamientos | Fitlaif' description='Guarda, selecciona, borra, o edita tus entrenamientos'></Headers>
       <h1 className='text-center'>¿Qué vamos a entrenar hoy?</h1>
       <h3 className='text-center'>En esta sección podrás elegir uno de los siguientes músculo y nosotros te haremos una rutina compuesta de 4 ejercicios, o tú mismo elegirás los ejercicios y registrarás tus PR!🏋🏻‍♀️</h3>
-      <div className="grid grid-cols-3 gap-4 ">
-        {data?.map((e) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 justify-items-center">
+        {data?.map((e, index) => (
           <div className="max-w-md mx-auto rounded overflow-hidden shadow-lg hover:shadow-xl transition duration-500 !bg-gray-900" key={e.entrenamientoId} suppressHydrationWarning={true}>
             <div className="relative h-auto">
               <Link
@@ -80,11 +80,12 @@ export default function Entrenamientos() {
                     height={400}
                     src={e.img}
                     alt="Entrenamiento"
+                    priority={index}
                   />
                 </div>
                 <div className="px-6 py-4">
                   <div className="font-bold text-xl mb-2 text-center">{e.musculo}</div>
-                  <p className="text-white text-center">Breve descripcion</p>
+                  <p className="text-white text-center">{e.descripcion}</p>
                 </div>
               </Link>
             </div>

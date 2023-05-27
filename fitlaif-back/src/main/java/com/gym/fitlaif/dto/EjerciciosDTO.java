@@ -16,4 +16,5 @@ public class EjerciciosDTO {
 	private String series;
 	private String repeticiones;
 	private String img;
+	private String descripcion;
 }
