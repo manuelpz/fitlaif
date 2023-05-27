@@ -78,8 +78,8 @@ export default function CartaMusculo({ ejerciciosElegidos }) {
                         <div className={`text-gray-900 font-bold text-xl mb-2 text-center ${completarCarta()}`}>
                             {e.ejercicio.toUpperCase()}
                         </div>
-                        {e.img ? (<div className="grid justify-items-center">
-                            <Image className="center" src={e.img} width={300} height={300} alt="Imagen explicativa del ejercicio" />
+                        {e.img ? (<div className="grid justify-items-center !w-72 !h-48">
+                            <Image className="w-full h-full" src={e.img} width={300} height={300} alt="Imagen explicativa del ejercicio" />
                         </div>) : ''}
                         <div className="mb-8">
                             <p className={`text-gray-700 text-base ${completarCarta()}`}>Series: {e.series}</p>

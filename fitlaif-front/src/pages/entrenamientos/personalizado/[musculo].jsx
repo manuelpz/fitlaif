@@ -24,7 +24,12 @@ export default function Rutina() {
   }
 
   const seleccionarEjercicio = (ejercicioSeleccionado) => {
+    if(!misEjercicios.includes(ejercicioSeleccionado)){
     setMisEjercicios([...misEjercicios, ejercicioSeleccionado])
+    }
+    else{
+      setMisEjercicios(misEjercicios.filter(ejercicio => ejercicio!== ejercicioSeleccionado))
+    }
   }
 
   const estaSeleccionado = (ejercicio) => {
