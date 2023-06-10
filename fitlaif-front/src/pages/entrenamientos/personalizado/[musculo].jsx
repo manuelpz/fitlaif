@@ -38,6 +38,7 @@ export default function Rutina() {
     }
   }
 
+  //Setea a completado un ejercicio cuando se pulsa el boton
   const handleCompletado = (index) => {
     setMisEjercicios((prevMisEjercicios) => {
       const updatedMisEjercicios = [...prevMisEjercicios];
@@ -107,8 +108,12 @@ export default function Rutina() {
                 <div className="font-bold text-center">{e.ejercicio.toUpperCase()}</div>
                 {e.img ? (
                   <div className="mt-4">
-                    <Image className="w-full h-auto" src={e.img} width={300} height={300} alt="Imagen explicativa del ejercicio" />
+                    <div style={{ width: "300px", height: "300px" }}>
+                      <Image className="w-full h-full object-cover" src={e.img} alt="Imagen explicativa del ejercicio" />
+                    </div>
                   </div>
+
+
                 ) : (
                   ""
                 )}
