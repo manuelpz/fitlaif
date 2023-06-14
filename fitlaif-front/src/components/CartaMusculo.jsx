@@ -1,11 +1,21 @@
 import Image from "next/image";
 import { useState, useRef } from "react";
+import { useRouter } from "next/router";
+import Confetti from 'react-confetti';
+import ReactModal from 'react-modal';
+import estilos from '../components/Modal.module.css';
 
 
 export default function CartaMusculo({ ejerciciosElegidos }) {
     const [visibleDiv, setVisibleDiv] = useState(0);
     const [completado, setCompletado] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(true)
     const touchStartRef = useRef(null);
+    const router = useRouter();
+
+    const irAEntrenamientos = () => {
+        router.push("/entrenamientos");
+    }
 
     //MANJEAR EL TOQUE DE MOVIL (ARRASTRAR DEDO)
     const handleTouchStart = (event) => {
@@ -99,6 +109,26 @@ export default function CartaMusculo({ ejerciciosElegidos }) {
                     </div>
                 </div>
             ))}
+            {completado.length === ejerciciosElegidos.length && <Confetti width={window.innerWidth} height={window.innerHeight} />}
+            {completado.length === ejerciciosElegidos.length && (<ReactModal
+                className={estilos.customModal}
+                isOpen={isModalOpen}
+                style={{
+                    overlay: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)'
+                    },
+                    content: {
+                        width: '250px',
+                        height: '200px',
+                        margin: 'auto'
+                    }
+                }} >
+                <h3 className={`${estilos.entreno} text-center`}>¡ENHORABUENA! Has completado el entrenamiento de hoy</h3>
+                <div className='grid grid-cols-2 gap-4 content-center'>
+                    <button type="button" className="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" onClick={irAEntrenamientos}>Volver</button>
+                    <button type="button" className="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" onClick={() => setIsModalOpen(false)}>Quedarme aquí</button>
+                </div>
+            </ReactModal>)}
         </div>
     )
 }

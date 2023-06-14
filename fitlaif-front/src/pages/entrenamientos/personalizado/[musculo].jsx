@@ -5,6 +5,7 @@ import Image from "next/image";
 import Confetti from 'react-confetti';
 import ReactModal from 'react-modal';
 import estilos from '../../../components/Modal.module.css';
+import CartaMusculo from "../../../components/CartaMusculo";
 
 export default function Rutina() {
   const [ejercicio, setEjercicio] = useState([]);
@@ -19,16 +20,16 @@ export default function Rutina() {
     window.location.reload();
   }
 
-  const irAEntrenamientos = () =>{
+  const irAEntrenamientos = () => {
     router.push("/entrenamientos");
   }
 
   const seleccionarEjercicio = (ejercicioSeleccionado) => {
-    if(!misEjercicios.includes(ejercicioSeleccionado)){
-    setMisEjercicios([...misEjercicios, ejercicioSeleccionado])
+    if (!misEjercicios.includes(ejercicioSeleccionado)) {
+      setMisEjercicios([...misEjercicios, ejercicioSeleccionado])
     }
-    else{
-      setMisEjercicios(misEjercicios.filter(ejercicio => ejercicio!== ejercicioSeleccionado))
+    else {
+      setMisEjercicios(misEjercicios.filter(ejercicio => ejercicio !== ejercicioSeleccionado))
     }
   }
 
@@ -101,30 +102,7 @@ export default function Rutina() {
       <div className="container mx-auto">
         <Headers title={"Entrenamiento | FitLaif"} description={"Entrenamiento personalizado | FitLaif"} />
         <div className="flex flex-col items-center">
-          {misEjercicios.map((e, index) => (
-            <div key={e.ejercicioId} className={`relative max-w-md w-full rounded overflow-hidden shadow-lg bg-gray-900 text-white mb-6 ${e.completado ? 'line-through' : ''}`}>
-              <div className="p-4">
-                <div className="absolute top-0 left-0 w-8 h-8 flex items-center justify-center bg-white text-black rounded-full font-bold">{index + 1}</div>
-                <div className="font-bold text-center">{e.ejercicio.toUpperCase()}</div>
-                {e.img ? (
-                  <div className="mt-4">
-                    <div style={{ width: "300px", height: "300px" }}>
-                      <Image className="w-full h-full object-cover" src={e.img} alt="Imagen explicativa del ejercicio" />
-                    </div>
-                  </div>
-
-
-                ) : (
-                  ""
-                )}
-              </div>
-              {!e.completado && (
-                <button className="absolute bottom-0 left-1/2 transform -translate-x-1/2 mb-2 py-1 px-2 bg-blue-500 text-white font-bold text-center text-xs" onClick={() => handleCompletado(index)}>
-                  Completado
-                </button>
-              )}
-            </div>
-          ))}
+          <CartaMusculo ejerciciosElegidos={misEjercicios}/>
           {todosCompletados && (
             <Confetti width={window.innerWidth} height={window.innerHeight} />
           )}
