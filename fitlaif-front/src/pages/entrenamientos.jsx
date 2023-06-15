@@ -1,10 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import ReactModal from 'react-modal';
 import Headers from '../components/Headers';
 import { useFetch } from '../funciones/useFetch';
-import {setearPrioridad} from '../funciones/setearPrioridad';
+import { setearPrioridad } from '../funciones/setearPrioridad';
 import estilos from '../components/Modal.module.css';
 
 export default function Entrenamientos() {
@@ -12,7 +12,6 @@ export default function Entrenamientos() {
   const [prioridad, setPrioridad] = useState('')
   const [entrenamiento, setEntrenamiento] = useState()
   const MENSAJE_DE_ERROR = 'Algo no ha ido bien y no hemos podido recuperar los entrenamientos... Por favor, contacta con un administrador'
-
 
   //FUNCIONES ---->
 
@@ -22,7 +21,7 @@ export default function Entrenamientos() {
   }
 
   //Abre el modal al hacer click en el boton de editar y le pasa el entrenamiento para guardar su ID y poder actualizarlo
-  const abrirModal = (e) =>{
+  const abrirModal = (e) => {
     setIsModalOpen(true)
     setEntrenamiento(e)
   }
@@ -42,8 +41,8 @@ export default function Entrenamientos() {
 
   // Llama al metodo PUT y guarda la nueva prioridad del ejercicio
   const cambiarLaPrioridad = (e, prioridad) => {
-     setearPrioridad(e, prioridad)
-     window.location.reload()
+    setearPrioridad(e, prioridad)
+    window.location.reload()
   }
 
   // Llama a fetch GET para obtener los entrenamientos
@@ -139,7 +138,7 @@ export default function Entrenamientos() {
                   <input onChange={onChangePrioridad} type="radio" value="Baja" name="prioridad" /> Baja
                 </div>
                 <div className='flex'>
-                  <button type="button" className="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" onClick={() => cambiarLaPrioridad(entrenamiento, prioridad) }>Establecer</button>
+                  <button type="button" className="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" onClick={() => cambiarLaPrioridad(entrenamiento, prioridad)}>Establecer</button>
                   <button type="button" className="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" onClick={() => setIsModalOpen(false)}>Cancelar</button>
                 </div>
               </div>

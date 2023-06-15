@@ -1,18 +1,44 @@
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 const Navbar = () => {
+    const [usuario, setUsuario] = useState()
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     }
 
+    //CIERRA SESION Y SETEA 'ISLOGGED' A FALSE
+    const cerrarSesion = async () => {
+        localStorage.clear()
+        await fetch('http://localhost:8080/usuarios/cerrarSesion', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(usuario),
+        })
+        window.location.reload()
+    }
+
     const router = useRouter()
 
+    //RECUPERA EL USUARIO DE LOCAL STORAGE PARA MANDARLO Y SETEAR A FALSE 'ISLOGGED' CUANDO SE CIERRE SESION
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetch(`http://localhost:8080/usuarios/${window.localStorage.getItem('userName')}`)
+            const data = await response.json()
+            setUsuario(data)
+        }
+        if (window.localStorage.getItem('userName') !== undefined) {
+            fetchData()
+        }
+    }, []);
 
+    //RENDERIZADO NORMAL ---->
     return (
         <nav className="bg-gray">
             <div className="mx-auto sm:px-6 lg:px-8">
@@ -38,6 +64,9 @@ const Navbar = () => {
                             <Link className={router.pathname == '/contacto' ? 'active' : 'nonActive'} href="/contacto">
                                 Contacto
                             </Link>
+                            <button className='text-white hover:bg-white hover:text-black items-center' onClick={cerrarSesion}>
+                                Cerrar sesion
+                            </button>
                         </div>
                         <div className="md:hidden">
                             <button
@@ -65,6 +94,8 @@ const Navbar = () => {
                     </div>
                 </div>
             </div>
+
+            {/* RENDERIZADO PARA MOVIL ------> */}
             {isMobileMenuOpen && (
                 <div className="md:hidden">
                     <ul className="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-right">
@@ -86,6 +117,11 @@ const Navbar = () => {
                         <li className="block">
                             <Link className='text-white hover:bg-white hover:text-black items-center' href="/contacto">
                                 Contacto
+                            </Link>
+                        </li>
+                        <li className="block">
+                            <Link className='text-white hover:bg-white hover:text-black items-center' onClick={cerrarSesion}>
+                                Cerrar sesion
                             </Link>
                         </li>
                     </ul>

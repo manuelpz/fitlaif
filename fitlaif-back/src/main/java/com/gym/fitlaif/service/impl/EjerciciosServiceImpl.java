@@ -29,7 +29,6 @@ public class EjerciciosServiceImpl implements EjerciciosService{
 	private final int NOT_FOUND_STATUS = 404;
     private final Firestore firestore;
 
-    @Autowired
     public EjerciciosServiceImpl(Firestore firestore) {
         this.firestore = firestore;
     }
