@@ -11,12 +11,14 @@ export default function App({ Component, pageProps }) {
   const [isLogged, setIsLogged] = useState(false)
 
 
+  //RECUPERA EL ESTADO 'ISLOGGED' DE LOCAL STORAGE Y LO SETEA
   useEffect(() => {
     setIsLogged(window.localStorage.getItem('logged'));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  //RENDEIZADO SI NO ESTA LOGEADO
   if (!isLogged || isLogged === undefined)  {
     return (
       <div>
@@ -29,23 +31,12 @@ export default function App({ Component, pageProps }) {
       </div>
       )
   }
+  //RENDEIZADO SI ESTA LOGEADO
   if (isLogged) {
     return (
       <div>
         <UserContextProvider>
           <Navbar></Navbar>
-          <Head>
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css" />
-          </Head>
-          <Component {...pageProps} />
-          <ToastContainer />
-        </UserContextProvider>
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        <UserContextProvider>
           <Head>
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css" />
           </Head>

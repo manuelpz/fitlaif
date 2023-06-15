@@ -7,22 +7,23 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const { setIsLogged } = useContext(UserContext);
 
-    const LogIn = async () => {
-        const response = await fetch(`http://localhost:8080/usuarios/${usuario}/${password}`);
+    //SI EL USUARIO Y LA CONTRASEÑA COINCIDEN, ALMACENA LOS DATOS DEL USUARIO DE LOCAL STORAGE E INICIA SESION
+    const logIn = async () => {
+        const response = await fetch(`http://localhost:8080/usuarios/${usuario}/${password}`)
         if (response.status !== 409) {
-            const data = await response.json();
-            setIsLogged(data.isLogged);
+            const data = await response.json()
+            setIsLogged(data.isLogged)
             const loggin = window.localStorage;
             loggin.setItem('logged', data.isLogged);
             loggin.setItem('userName', data.usuario);
-            loggin.setItem('password', data.password);
-            window.location.href = '/';
+            window.location.href = '/'
         }
         else {
-            alert("Usuario inválido");
+            alert("Usuario inválido")
         }
     };
 
+    //RENDERIZADO NORMAL ----->
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-900">
             <Headers title="Login" description="Portal de inicio de sesion de la web de FitLaif" />
@@ -58,7 +59,7 @@ export default function Login() {
                         </div>
                     </div>
                     <button
-                        onClick={LogIn}
+                        onClick={logIn}
                         className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
                     >
                         Entrar
