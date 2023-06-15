@@ -1,15 +1,14 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import { UserContext } from '../../context/usuarioContext';
 import Headers from '../../components/Headers';
 import { useRouter } from 'next/router';
-
-export default function Login() {
+export default function Registro() {
     const router = useRouter()
     const [usuario, setUsuario] = useState('');
     const [password, setPassword] = useState('');
     const { setIsLogged } = useContext(UserContext);
 
-    // SI EL USUARIO Y LA CONTRASEÑA COINCIDEN, ALMACENA LOS DATOS DEL USUARIO DE LOCAL STORAGE E INICIA SESION
+    //SI EL USUARIO Y LA CONTRASEÑA COINCIDEN, ALMACENA LOS DATOS DEL USUARIO DE LOCAL STORAGE E INICIA SESION
     const logIn = async () => {
         const response = await fetch(`http://localhost:8080/usuarios/${usuario}/${password}`)
         if (response.status !== 409) {
@@ -18,29 +17,21 @@ export default function Login() {
             const loggin = window.localStorage;
             loggin.setItem('logged', data.isLogged);
             loggin.setItem('userName', data.usuario);
-            router.push('/');
-        } else {
+            router.push = ('/')
+        }
+        else {
             alert("Usuario inválido")
         }
     }
 
-    const irARegistro = () => {
-        const account = window.localStorage
-        account.setItem('account', false)
-        window.location.href = '/registro'
+    const irALogin = () => {
+        window.location.href = '/login'
     }
 
-    useEffect(() => {
-        const logged = window.localStorage.getItem('logged');
-        if (logged) {
-            router.push('/');
-        }
-    }, []);
-
-    // RENDERIZADO NORMAL ----->
+    //RENDERIZADO NORMAL ----->
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-900">
-            <Headers title="Login" description="Portal de inicio de sesion de la web de FitLaif" />
+            <Headers title="Registro" description="Portal de registro de usuarios de la web de FitLaif" />
             <div className="max-w-md w-full bg-gray-800 rounded-lg overflow-hidden shadow-lg">
                 <div className="px-6 py-8">
                     <h2 className="text-2xl font-semibold mb-6 text-white">Iniciar sesión</h2>
@@ -79,16 +70,16 @@ export default function Login() {
                         Entrar
                     </button>
                     <div className='text-center'>
-                        <p className="text-white text-base text-center font-bold">¿No tienes cuenta?</p>
+                        <p className="text-white text-base text-center font-bold">¿Ya tienes cuenta?</p>
                         <button
-                            onClick={irARegistro}
+                            onClick={irALogin}
                             className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
                         >
-                            Regístrate
+                            Accede!
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-    )
+    );
 }

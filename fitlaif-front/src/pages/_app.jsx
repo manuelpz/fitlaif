@@ -6,20 +6,23 @@ import Navbar from '../components/Navbar';
 import { UserContextProvider } from '../context/usuarioContext';
 import { useEffect, useState } from 'react';
 import Login from './login';
+import Registro from './registro';
+import Router from 'next/router';
+import Error from 'next/error';
 
 export default function App({ Component, pageProps }) {
   const [isLogged, setIsLogged] = useState(false)
-
+  const [routerPath, setRouterPath] = useState('')
 
   //RECUPERA EL ESTADO 'ISLOGGED' DE LOCAL STORAGE Y LO SETEA
   useEffect(() => {
-    setIsLogged(window.localStorage.getItem('logged'));
-
+    setIsLogged(window.localStorage.getItem('logged'))
+    setRouterPath(Router.pathname)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //RENDEIZADO SI NO ESTA LOGEADO
-  if (!isLogged || isLogged === undefined)  {
+  if ((!isLogged || isLogged === undefined || isLogged === null) && routerPath === '/login')  {
     return (
       <div>
         <UserContextProvider>
@@ -30,6 +33,19 @@ export default function App({ Component, pageProps }) {
           </UserContextProvider>
       </div>
       )
+  }
+
+  if ((!isLogged || isLogged === undefined) && routerPath === '/registro') {
+    return (
+      <div>
+        <UserContextProvider>
+          <Head>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css" />
+          </Head>
+          <Registro />
+        </UserContextProvider>
+      </div>
+    )
   }
   //RENDEIZADO SI ESTA LOGEADO
   if (isLogged) {
@@ -44,6 +60,16 @@ export default function App({ Component, pageProps }) {
           <ToastContainer />
         </UserContextProvider>
       </div>
-    );
+    )
   }
+  else return (<div>
+    <UserContextProvider>
+      <Navbar></Navbar>
+      <Head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css" />
+      </Head>
+      <Error/>
+      <ToastContainer />
+    </UserContextProvider>
+  </div>)
 }
