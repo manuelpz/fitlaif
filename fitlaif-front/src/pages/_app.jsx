@@ -8,8 +8,7 @@ import { useEffect, useState } from 'react';
 import Login from './login';
 import Registro from './registro';
 import Router from 'next/router';
-import Error from 'next/error';
-
+import NoAutenticado from './noAutenticado';
 export default function App({ Component, pageProps }) {
   const [isLogged, setIsLogged] = useState(false)
   const [routerPath, setRouterPath] = useState('')
@@ -22,7 +21,7 @@ export default function App({ Component, pageProps }) {
   }, []);
 
   //RENDEIZADO SI NO ESTA LOGEADO
-  if ((!isLogged || isLogged === undefined || isLogged === null) && routerPath === '/login')  {
+  if ((!isLogged || isLogged === undefined || isLogged === null) && (routerPath === '/login' || routerPath === '/') )  {
     return (
       <div>
         <UserContextProvider>
@@ -68,7 +67,7 @@ export default function App({ Component, pageProps }) {
       <Head>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css" />
       </Head>
-      <Error/>
+      <NoAutenticado/>
       <ToastContainer />
     </UserContextProvider>
   </div>)

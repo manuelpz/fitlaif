@@ -9,18 +9,30 @@ export default function Registro() {
     const { setIsLogged } = useContext(UserContext);
 
     //SI EL USUARIO Y LA CONTRASEÑA COINCIDEN, ALMACENA LOS DATOS DEL USUARIO DE LOCAL STORAGE E INICIA SESION
-    const logIn = async () => {
-        const response = await fetch(`http://localhost:8080/usuarios/${usuario}/${password}`)
-        if (response.status !== 409) {
-            const data = await response.json()
-            setIsLogged(data.isLogged)
-            const loggin = window.localStorage;
-            loggin.setItem('logged', data.isLogged);
-            loggin.setItem('userName', data.usuario);
-            router.push = ('/')
+    const register = async () => {
+        const data = {
+            usuario: usuario,
+            password: password,
+            isLogged: false
+
+        }
+        const response = await fetch(`http://localhost:8080/usuarios/guardar`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+        if (response.status === 409) {
+            alert('El usuario ya existe')
+        }
+
+        if (response.status === 500) {
+            alert('Estamos teniendo problemas con el servidor, espera un momento o ponte en contacto con un administrador')
         }
         else {
-            alert("Usuario inválido")
+            alert('Usuario creado')
+            router.push = ('/login')
         }
     }
 
@@ -34,7 +46,7 @@ export default function Registro() {
             <Headers title="Registro" description="Portal de registro de usuarios de la web de FitLaif" />
             <div className="max-w-md w-full bg-gray-800 rounded-lg overflow-hidden shadow-lg">
                 <div className="px-6 py-8">
-                    <h2 className="text-2xl font-semibold mb-6 text-white">Iniciar sesión</h2>
+                    <h2 className="text-2xl font-semibold mb-6 text-white text-center">¡Regístrate!</h2>
                     <div className="mb-4">
                         <label htmlFor="usuario" className="block text-white text-sm mb-2">
                             Usuario
@@ -63,19 +75,21 @@ export default function Registro() {
                             />
                         </div>
                     </div>
-                    <button
-                        onClick={logIn}
-                        className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
-                    >
-                        Entrar
-                    </button>
+                    <div className='text-center'>
+                        <button
+                            onClick={register}
+                            className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
+                        >
+                            Enviar
+                        </button>
+                    </div>
                     <div className='text-center'>
                         <p className="text-white text-base text-center font-bold">¿Ya tienes cuenta?</p>
                         <button
                             onClick={irALogin}
                             className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
                         >
-                            Accede!
+                            ¡Accede!
                         </button>
                     </div>
                 </div>
