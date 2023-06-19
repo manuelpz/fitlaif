@@ -23,7 +23,7 @@ export default function Login() {
             const loggin = window.localStorage;
             loggin.setItem('logged', data.isLogged);
             loggin.setItem('userName', data.usuario);
-            router.push('/');
+            window.location.href = '/';
         }
         else {
             alert(response) 
