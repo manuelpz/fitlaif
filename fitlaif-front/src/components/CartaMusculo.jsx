@@ -63,14 +63,20 @@ export default function CartaMusculo({ ejerciciosElegidos }) {
 
     //AÑADE UN ELEMENTO A UN ARRAY DE EJERCICIOS COMPLETADO
     const agregarElemento = () => {
-        const nuevoElemento = ejerciciosElegidos[visibleDiv];
-        setCompletado([...completado, nuevoElemento]);
+        const nuevoElemento = ejerciciosElegidos[visibleDiv]
+        setCompletado([...completado, nuevoElemento])
     }
 
     //FUNCION QUE TACHA EL EJERCICIO
     const completarCarta = () => {
         if (completado.includes(ejerciciosElegidos[visibleDiv])) {
             return 'line-through'
+        }
+    }
+
+    const estaCompletado = () => {
+        if (completado.includes(ejerciciosElegidos[visibleDiv])) {
+            return true
         }
     }
 
@@ -97,7 +103,7 @@ export default function CartaMusculo({ ejerciciosElegidos }) {
                         </div>
                         <div className="grid justify-items-center">
                             <p className="text-gray-700 text-center">{e.descripcion}</p>
-                            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-fulld" onClick={agregarElemento}>
+                            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-fulld" onClick={agregarElemento} disabled={estaCompletado()}>
                                 Completado!
                             </button>
                         </div>

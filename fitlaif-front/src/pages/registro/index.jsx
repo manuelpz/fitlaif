@@ -1,12 +1,9 @@
-import { useState, useContext } from 'react';
-import { UserContext } from '../../context/usuarioContext';
+import { useState } from 'react';
 import Headers from '../../components/Headers';
-import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 export default function Registro() {
-    const router = useRouter()
-    const [usuario, setUsuario] = useState('');
-    const [password, setPassword] = useState('');
-    const { setIsLogged } = useContext(UserContext);
+    const [usuario, setUsuario] = useState('')
+    const [password, setPassword] = useState('')
 
     //SI EL USUARIO Y LA CONTRASEÑA COINCIDEN, ALMACENA LOS DATOS DEL USUARIO DE LOCAL STORAGE E INICIA SESION
     const register = async () => {
@@ -23,16 +20,16 @@ export default function Registro() {
             },
             body: JSON.stringify(data)
         })
-        if (response.status === 409) {
-            alert('El usuario ya existe')
-        }
-
-        if (response.status === 500) {
-            alert('Estamos teniendo problemas con el servidor, espera un momento o ponte en contacto con un administrador')
-        }
-        else {
-            alert('Usuario creado')
-            router.push = ('/login')
+        switch (response.status) {
+            case 200:
+                toast.success('Usuario creado')
+                window.location.href = '/login'
+                break
+            case 409:
+                toast.error('El usuario ya existe')
+                break
+            case 500:
+                toast.error('Ha habido un error inesperado, ponte en contacto con un administrador')
         }
     }
 
@@ -95,5 +92,5 @@ export default function Registro() {
                 </div>
             </div>
         </div>
-    );
+    )
 }

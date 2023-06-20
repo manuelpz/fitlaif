@@ -1,6 +1,4 @@
-import { useRouter } from "next/router"
 export default function NoAutenticado() {
-    const router = useRouter()
     const irALogin = () =>{
         window.location.href = '/login'
     }

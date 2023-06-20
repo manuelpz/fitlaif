@@ -33,6 +33,7 @@ export default function App({ Component, pageProps }) {
             />
           </Head>
           <Login />
+          <ToastContainer />
         </UserContextProvider>
       </div>
     );
@@ -49,6 +50,7 @@ export default function App({ Component, pageProps }) {
             />
           </Head>
           <Registro />
+          <ToastContainer />
         </UserContextProvider>
       </div>
     );

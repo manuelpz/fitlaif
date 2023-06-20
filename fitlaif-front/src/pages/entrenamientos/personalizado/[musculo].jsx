@@ -39,15 +39,6 @@ export default function Rutina() {
     }
   }
 
-  //Setea a completado un ejercicio cuando se pulsa el boton
-  const handleCompletado = (index) => {
-    setMisEjercicios((prevMisEjercicios) => {
-      const updatedMisEjercicios = [...prevMisEjercicios];
-      updatedMisEjercicios[index].completado = true;
-      return updatedMisEjercicios;
-    })
-  }
-
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch("http://localhost:8080/ejercicios");
