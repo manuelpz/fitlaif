@@ -25,11 +25,11 @@ body {
   margin: auto !important;
 }
 
-a{
+a {
   text-decoration: none !important;
 }
 
-.active{
+.active {
   color: black;
   font-weight: bold;
   border: 3px solid lightgray !important;
@@ -38,7 +38,7 @@ a{
   background-color: lightgray !important;
 }
 
-.nonActive{
+.nonActive {
   color: oldlace;
   font-weight: bold;
 }
@@ -82,7 +82,7 @@ a{
 
 .loader {
   color: #4a4a4a;
-  font-family: "Poppins",sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 500;
   font-size: 25px;
   -webkit-box-sizing: content-box;

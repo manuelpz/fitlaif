@@ -1,16 +1,14 @@
-import React from 'react';
+import React from "react"
 
 const VideoBackground = () => {
-    return (
-        <div className="video-container">
-            <video autoPlay loop muted>
-                <source src="/landing/inicio.mp4" type="video/mp4" />
-                Tu navegador no soporta la etiqueta de video.
-            </video>
-            <div className="content">
-                {/* Aquí puedes agregar tu contenido */}
-            </div>
-            <style jsx>{`
+  return (
+    <div className="video-container">
+      <video autoPlay loop muted>
+        <source src="/landing/inicio.mp4" type="video/mp4" />
+        Tu navegador no soporta la etiqueta de video.
+      </video>
+      <div className="content">{/* Aquí puedes agregar tu contenido */}</div>
+      <style jsx>{`
         .video-container {
           position: fixed;
           top: 0;
@@ -30,8 +28,8 @@ const VideoBackground = () => {
           /* Estilos para el contenido */
         }
       `}</style>
-        </div>
-    );
-};
+    </div>
+  )
+}
 
-export default VideoBackground;
+export default VideoBackground

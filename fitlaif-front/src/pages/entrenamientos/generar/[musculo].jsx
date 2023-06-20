@@ -11,9 +11,13 @@ export default function Rutina() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('http://localhost:8080/ejercicios')
+      const response = await fetch("http://localhost:8080/ejercicios")
       const data = await response.json()
-      setEjercicio(data.filter(e => e.musculo.toLowerCase() === musculo.toLocaleLowerCase()))
+      setEjercicio(
+        data.filter(
+          (e) => e.musculo.toLowerCase() === musculo.toLocaleLowerCase()
+        )
+      )
     }
     if (musculo) {
       fetchData()
@@ -59,8 +63,10 @@ export default function Rutina() {
   //RENDERIZADO NORMAL
   return (
     <div>
-      <Headers title={'Rutina'} description={'Rutina preparada por FitLaif'} />
-      <CartaMusculo ejerciciosElegidos={ejerciciosElegidos ? ejerciciosElegidos : []} />
+      <Headers title={"Rutina"} description={"Rutina preparada por FitLaif"} />
+      <CartaMusculo
+        ejerciciosElegidos={ejerciciosElegidos ? ejerciciosElegidos : []}
+      />
     </div>
   )
 }
