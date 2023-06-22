@@ -14,12 +14,14 @@ public class SeriesRepeticionesMapper {
 
 	    List<String> series = ejercicio.getSeries();
 	    List<String> repeticiones = ejercicio.getRepeticiones();
+	    List<String> peso = ejercicio.getPeso();
 
 	    int size = Math.min(series.size(), repeticiones.size());
 	    for (int index = 0; index < size; index++) {
 	        SeriesRepeticionesDTO ser = new SeriesRepeticionesDTO();
 	        ser.setSeries(series.get(index));
 	        ser.setRepeticiones(repeticiones.get(index));
+	        ser.setPeso(peso.get(index));
 	        seriesRepeticionesDTO.add(ser);
 	    }
 

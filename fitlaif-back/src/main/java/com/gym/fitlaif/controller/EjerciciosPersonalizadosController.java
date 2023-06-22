@@ -31,9 +31,9 @@ public class EjerciciosPersonalizadosController {
 		return ejerciciosService.obtenerEjercicios(id);
 	}
 	
-	@GetMapping("/{seriesRepeticiones}")
-	private List<SeriesRepeticionesDTO> obtenerSeriesYRepeticiones(@PathVariable EjerciciosPersonalizadosDTO ejercicio) throws Exception {
-		return ejerciciosService.obtenerSeriesYRepeticiones(ejercicio);
+	@GetMapping("/seriesRepeticiones/{id}")
+	private List<SeriesRepeticionesDTO> obtenerSeriesYRepeticiones(@PathVariable String id) throws Exception {
+		return ejerciciosService.obtenerSeriesYRepeticiones(id);
 	}
 	
 	@GetMapping

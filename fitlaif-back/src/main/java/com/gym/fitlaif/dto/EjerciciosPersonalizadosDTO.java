@@ -16,6 +16,7 @@ public class EjerciciosPersonalizadosDTO {
 	private String ejercicio;
 	private List<String> series;
 	private List<String> repeticiones;
+	private List<String> peso;
 	private String usuario;
 	private String pr;
 }

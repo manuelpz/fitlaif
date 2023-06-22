@@ -19,14 +19,10 @@ public class EjerciciosPersonalizados {
 
 	@Id
 	private String ejercicioId;
-	
 	private String ejercicio;
-	
-	private List<String> repeticiones;
-	
+	private List<String> repeticiones;	
 	private List<String> series;
-	
+	private List<String> peso;
 	private String usuario;
-	
 	private String pr;
 }

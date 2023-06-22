@@ -13,5 +13,5 @@ public interface EjerciciosPersonalizadosService {
 	EjerciciosPersonalizadosDTO obtenerEjercicios(String id) throws Exception;
 	void eliminarEjercicio(String id) throws Exception;
 	EjerciciosPersonalizadosDTO actualizarEjercicio(EjerciciosPersonalizados ejercicio) throws Exception;
-	List<SeriesRepeticionesDTO> obtenerSeriesYRepeticiones(EjerciciosPersonalizadosDTO ejercicioPersonalizado) throws Exception;
+	List<SeriesRepeticionesDTO> obtenerSeriesYRepeticiones(String id) throws Exception;
 }

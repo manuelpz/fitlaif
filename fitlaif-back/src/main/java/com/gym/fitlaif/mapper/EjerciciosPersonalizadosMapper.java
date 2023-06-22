@@ -17,6 +17,7 @@ public class EjerciciosPersonalizadosMapper {
 		ejercicioPersonalizadoDTO.setUsuario(ejercicio.getUsuario());
 		ejercicioPersonalizadoDTO.setRepeticiones(ejercicio.getRepeticiones());
 		ejercicioPersonalizadoDTO.setSeries(ejercicio.getSeries());
+		ejercicioPersonalizadoDTO.setPeso(ejercicio.getPeso());
 		ejercicioPersonalizadoDTO.setPr(ejercicio.getPr());
 		return ejercicioPersonalizadoDTO;
 	}
@@ -30,6 +31,7 @@ public class EjerciciosPersonalizadosMapper {
 		ejercicioDTO.setUsuario(ejercicio.getUsuario());
 		ejercicioDTO.setRepeticiones(ejercicio.getRepeticiones());
 		ejercicioDTO.setSeries(ejercicio.getSeries());
+		ejercicioDTO.setPeso(ejercicio.getPeso());
 		ejercicioDTO.setPr(ejercicio.getPr());
 		ejerciciosPersonalizadosDTO.add(ejercicioDTO);
 		}

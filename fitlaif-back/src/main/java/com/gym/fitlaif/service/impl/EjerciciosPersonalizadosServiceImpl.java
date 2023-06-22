@@ -124,9 +124,9 @@ public class EjerciciosPersonalizadosServiceImpl implements EjerciciosPersonaliz
 	}
 
 	@Override
-	public List<SeriesRepeticionesDTO> obtenerSeriesYRepeticiones(EjerciciosPersonalizadosDTO ejercicioPersonalizado)
+	public List<SeriesRepeticionesDTO> obtenerSeriesYRepeticiones(String id)
 			throws Exception {
-		EjerciciosPersonalizados ejercicioPersonalizadoEncontrado = encontrarPorId(ejercicioPersonalizado.getEjercicioId());
+		EjerciciosPersonalizados ejercicioPersonalizadoEncontrado = encontrarPorId(id);
 		List<SeriesRepeticionesDTO> seriesRepes = seriesRepeticionesMapper.toSeriesRepeticiones(ejerciciosMapper.toDTO(ejercicioPersonalizadoEncontrado));
 		return seriesRepes;
 	}

@@ -12,4 +12,5 @@ import lombok.Setter;
 public class SeriesRepeticionesDTO {
 	private String series;
 	private String repeticiones;
+	private String peso;
 }
