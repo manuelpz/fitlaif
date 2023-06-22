@@ -100,7 +100,10 @@ public class EjerciciosPersonalizadosServiceImpl implements EjerciciosPersonaliz
 	        		ejercicio = ejercicioA;
 	        		}
 	        }
-		return ejercicio;
+	        if(ejercicio != null) {
+	        	return ejercicio;
+	        }
+	        else throw new FitLaifNotFoundException(NOT_FOUND_STATUS, "Este ejercicio no existe");
 	}
 	
 	public void persistirEjercicio(EjerciciosPersonalizados ejercicio, DocumentReference document) {

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
 import com.gym.fitlaif.exceptions.FitLaifConflictException;
+import com.gym.fitlaif.exceptions.FitLaifNotFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -24,6 +25,18 @@ public class GlobalExceptionHandler {
         error.put("message", ex.getMessage());
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
+    
+    @ExceptionHandler(FitLaifNotFoundException.class)
+    public ResponseEntity<Object> handleEntrenamientoNotFound(
+    		FitLaifNotFoundException ex, WebRequest request) {
+
+        Map<String, Object> error = new HashMap<>();
+        error.put("status", HttpStatus.NOT_FOUND.value());
+        error.put("error", HttpStatus.NOT_FOUND.getReasonPhrase());
+        error.put("message", ex.getMessage());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 }
 
